@@ -9,7 +9,7 @@ WORKDIR /opt
 RUN curl -SLO https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz \
     && curl -SLO https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt \
     && grep node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz SHASUMS256.txt | sha256sum -c - \
-    && tar -xzf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz -C /usr/local/bin \
+    && tar -xzf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz -C /usr/local/ --strip-components=1 \
     && rm -rf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz SHASUMS256.txt
 
 ### deal with the GFW  ###
@@ -20,7 +20,8 @@ RUN gem sources --remove https://rubygems.org/ \
     && gem sources -a https://ruby.taobao.org/
 
 # install packages
-#RUN cnpm install -g grunt-cli bower \
-#    && gem update --system \
-#    && gem install compass
+RUN cnpm install -g grunt-cli bower \
+    && gem update --system \
+    && gem install compass
+
 CMD ["node"]
