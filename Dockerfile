@@ -4,13 +4,13 @@ MAINTAINER www.maidailicai.com
 # Set Version and Arch
 ENV NODE_VERSION 0.10.32
 ENV NODE_ARCH x64
-
+WORKDIR /opt
 # download tarball && checksum && unpack && clean
-RUN curl -SLO https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz \
-	&& curl -SLO https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt \
-	&& grep node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz SHASUMS256.txt | sha256sum -c - \
-	&& tar -xzf node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz -C /usr/local/bin \
-    && rm -rf node-v${NODE_VERSION}-linux-${NODE_ARCH}.tar.gz SHASUMS256.txt
+RUN curl -SLO https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz \
+	&& curl -SLO https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt \
+	&& grep node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz SHASUMS256.txt | sha256sum -c - \
+	&& tar -xzf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz -C /usr/local/bin \
+    && rm -rf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz SHASUMS256.txt
 
 ### deal with the GFW  ###
 # cnpm is an alias of npm which set --registry to http://registry.npm.taobao.org
