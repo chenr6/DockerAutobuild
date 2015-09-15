@@ -12,15 +12,8 @@ RUN curl -SLO https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$
     && tar -xzf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz -C /usr/local/ --strip-components=1 \
     && rm -rf node-v$NODE_VERSION-linux-$NODE_ARCH.tar.gz SHASUMS256.txt
 
-### deal with the GFW  ###
-# cnpm is an alias of npm which set --registry to http://registry.npm.taobao.org
-COPY cnpm /usr/local/bin/cnpm
-# change gem source
-RUN gem sources --remove https://rubygems.org/ \
-    && gem sources -a https://ruby.taobao.org/
-
 # install packages
-RUN cnpm install -g grunt-cli bower \
+RUN npm install -g grunt-cli bower \
     && gem update --system \
     && gem install compass
 
